@@ -1,0 +1,1 @@
+export PATH=$HOME/bin/dev-tools/spark-2.1.1-bin-hadoop2.7/bin:$PATH
