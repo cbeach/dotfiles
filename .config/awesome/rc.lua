@@ -10,9 +10,19 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+local net_widgets = require("net_widgets")
+
 
 -- Load Debian menu entries
 require("debian.menu")
+require("awesome-wm-widgets.battery-widget.battery")
+
+local net_wireless = net_widgets.wireless({interface="wlp4s0"})
+local net_wired = net_widgets.indicator({
+  interfaces  = {"enp0s31f6"},
+  timeout     = 5
+})
+
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -53,12 +63,12 @@ editor_cmd = terminal .. " -e " .. editor
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+modkey = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
 {
-    awful.layout.suit.floating,
+    --awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -74,11 +84,11 @@ local layouts =
 -- }}}
 
 -- {{{ Wallpaper
-if beautiful.wallpaper then
-    for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
-    end
-end
+--if beautiful.wallpaper then
+--    for s = 1, screen.count() do
+--        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+--    end
+--end
 -- }}}
 
 -- {{{ Tags
@@ -195,6 +205,9 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(battery_widget)
+    right_layout:add(net_wireless)
+    right_layout:add(net_wired)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
@@ -215,6 +228,56 @@ root.buttons(awful.util.table.join(
     awful.button({ }, 5, awful.tag.viewprev)
 ))
 -- }}}
+function scandir(directory, filter)
+  local i, t, popen = 0, {}, io.popen
+  local pfile = popen('ls -a "'..directory..'"')
+  for filename in pfile:lines() do
+    i = i + 1
+    if filter(filename) then t[i] = filename end
+  end
+  pfile:close()
+  return t
+end
+
+-- configuration - edit to your liking
+math.randomseed( os.time() )
+wp_index = 1
+wp_timeout  = 300
+wp_path = "/home/mcsmash/Documents/wallpapers/"
+wp_filter = function(s) return string.match(s,"%.png$") or string.match(s,"%.jpg$") end
+wp_files = scandir(wp_path, wp_filter)
+
+-- set wallpaper to current index for all screens 
+for s = 1, screen.count() do
+  -- get next random index
+  wp_index = math.random( 1, #wp_files)
+  gears.wallpaper.fit(wp_path .. wp_files[wp_index], s, black)
+end
+
+-- setup the timer
+wp_timer = gears.timer { timeout = wp_timeout }
+wp_timer:connect_signal("timeout", function()
+  -- rescan 
+  local wp_files = scandir(wp_path, wp_filter)
+
+  -- set wallpaper to current index for all screens 
+  for s = 1, screen.count() do
+    -- get next random index
+    wp_index = math.random( 1, #wp_files)
+    gears.wallpaper.fit(wp_path .. wp_files[wp_index], s, black)
+  end
+
+  -- stop the timer (we don't need multiple instances running at the same time)
+  wp_timer:stop()
+
+
+  --restart the timer
+  wp_timer.timeout = wp_timeout
+  wp_timer:start()
+end)
+
+  -- initial start when rc.lua is first run
+   wp_timer:start()
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
@@ -429,6 +492,7 @@ client.connect_signal("manage", function (c, startup)
         right_layout:add(awful.titlebar.widget.stickybutton(c))
         right_layout:add(awful.titlebar.widget.ontopbutton(c))
         right_layout:add(awful.titlebar.widget.closebutton(c))
+        right_layout:add(awful.titlebar.widget.closebutton(c))
 
         -- The title goes in the middle
         local middle_layout = wibox.layout.flex.horizontal()
@@ -449,4 +513,5 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
 -- }}}
