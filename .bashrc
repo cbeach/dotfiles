@@ -9,6 +9,7 @@ alias nautilus='nautilus --no-desktop'
 source $HOME/.bash/include/*
 
 export PATH=/opt/couchbase/bin:$PATH
+export PATH=$HOME/bin/dev-tools/:$PATH
 export PATH=$HOME/bin/dev-tools/analyzer/:$PATH
 export PATH=$HOME/bin/dev-tools/clion/bin/:$PATH
 export PATH=$HOME/bin/dev-tools/EAPidea/bin:$PATH
