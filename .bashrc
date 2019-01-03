@@ -8,7 +8,7 @@ alias nautilus='nautilus --no-desktop'
 
 source $HOME/.bash/include/*
 
-export PATH=/opt/couchbase/bin:$PATH
+export PATH=$HOME/bin/:$PATH
 export PATH=$HOME/bin/dev-tools/:$PATH
 export PATH=$HOME/bin/dev-tools/analyzer/:$PATH
 export PATH=$HOME/bin/dev-tools/clion/bin/:$PATH
@@ -20,6 +20,8 @@ export PATH=$HOME/bin/dev-tools/pycharm/bin/:$PATH
 export PATH=$HOME/bin/dev-tools/scala_sloc:$PATH
 export PATH=$HOME/bin/dev-tools/bin:$PATH
 export PATH=$HOME/.vimpkg/bin:$PATH
+export PATH=/usr/local/cuda-9.2/bin:$PATH
+export PATH=/opt/couchbase/bin:$PATH
 
 export PATH=$HOME/bin/games/MultiMC:$PATH
 export PATH=$HOME/bin/games/FTL:$PATH
@@ -27,17 +29,20 @@ export PATH=$HOME/bin/games/FTL:$PATH
 export PATH=$HOME/.cabal:$PATH
 
 
-#export JAVA_HOME='/usr/lib/jvm/java-1.6.0-openjdk'
-export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
+export JAVA_HOME=$(readlink -f $(which java))
 export JETTY_HOME="$HOME/bin/dev-tools/jetty/"
 export IDEA_JDK='/usr/lib/jvm/java-8-oracle/jre/bin/java'
-#export JAVA_HOME='/usr/lib/jvm/java-6-openjdk-amd64/'
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/dev/java_libraries/static_libraries/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.2/lib64
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 
 export WORKON_HOME=$HOME/Envs
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
+
+export DATA_DIR=$HOME/dev/data/
+
 source /usr/local/bin/virtualenvwrapper.sh
 #source $HOME/bin/dev-tools/nvm/nvm.sh
 
