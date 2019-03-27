@@ -5,10 +5,17 @@
 
 #alias mc='java -Xmx1024M -Xms512M -cp $HOME/bin/minecraft.jar net.minecraft.LauncherFrame'
 alias nautilus='nautilus --no-desktop'
+alias cdgo="cd $HOME/dev/go/src/github.com/gametimesf/"
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
+export TMPDIR=$HOME/tmp
 
 source $HOME/.bash/include/*
 
-export PATH=$HOME/bin/:$PATH
+export GOPATH=$HOME/dev/go/
+
+export PATH=/opt/couchbase/bin:$PATH
 export PATH=$HOME/bin/dev-tools/:$PATH
 export PATH=$HOME/bin/dev-tools/analyzer/:$PATH
 export PATH=$HOME/bin/dev-tools/clion/bin/:$PATH
@@ -18,31 +25,32 @@ export PATH=$HOME/bin/dev-tools/intelliJ/bin/:$PATH
 export PATH=$HOME/bin/dev-tools/pycharm/bin:$PATH
 export PATH=$HOME/bin/dev-tools/pycharm/bin/:$PATH
 export PATH=$HOME/bin/dev-tools/scala_sloc:$PATH
+export PATH=$HOME/bin/dev-tools/robo3t-1.2.1/bin:$PATH
 export PATH=$HOME/bin/dev-tools/bin:$PATH
 export PATH=$HOME/.vimpkg/bin:$PATH
-export PATH=/usr/local/cuda-9.2/bin:$PATH
-export PATH=/opt/couchbase/bin:$PATH
+export PATH=$HOME/dev/go/bin:$PATH
 
 export PATH=$HOME/bin/games/MultiMC:$PATH
 export PATH=$HOME/bin/games/FTL:$PATH
 
 export PATH=$HOME/.cabal:$PATH
 
+# GameTime
 
-export JAVA_HOME=$(readlink -f $(which java))
+export PATH=/usr/local/go/bin:$PATH
+
+
+#export JAVA_HOME='/usr/lib/jvm/java-1.6.0-openjdk'
+export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
 export JETTY_HOME="$HOME/bin/dev-tools/jetty/"
 export IDEA_JDK='/usr/lib/jvm/java-8-oracle/jre/bin/java'
+#export JAVA_HOME='/usr/lib/jvm/java-6-openjdk-amd64/'
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/dev/java_libraries/static_libraries/
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.2/lib64
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 
 export WORKON_HOME=$HOME/Envs
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
-
-export DATA_DIR=$HOME/dev/data/
-
 source /usr/local/bin/virtualenvwrapper.sh
 #source $HOME/bin/dev-tools/nvm/nvm.sh
 
@@ -164,3 +172,16 @@ if [ -f '/home/mcsmash/bin/dev-tools/google-cloud-sdk/path.bash.inc' ]; then sou
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/mcsmash/bin/dev-tools/google-cloud-sdk/completion.bash.inc' ]; then source '/home/mcsmash/bin/dev-tools/google-cloud-sdk/completion.bash.inc'; fi
+export PATH=$PATH:~/.vimpkg/bin
+eval "$(rbenv init -)"
+
+show_virtual_env() {
+  if [ -n "$VIRTUAL_ENV" ]; then
+    echo "($(basename $VIRTUAL_ENV))"
+  fi
+}
+
+PS1='$(show_virtual_env)'$PS1
+
+# direnv
+eval "$(direnv hook bash)"
