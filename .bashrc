@@ -3,30 +3,50 @@
 # for examples
 #set guifont=Ubuntu\ Mono\ for\ Powerline\ 12
 
+export CURRENT_TICKET="BE-5756"
+export STAGING_MONGO_PASS=$(aws ssm --region='us-west-2' get-parameter --name "/atlas/staging/mongo_password" --with-decryption --output json | jq -r ".Parameter.Value" || echo "no connection")
+
 #alias mc='java -Xmx1024M -Xms512M -cp $HOME/bin/minecraft.jar net.minecraft.LauncherFrame'
 alias nautilus='nautilus --no-desktop'
 alias cdgo="cd $HOME/dev/go/src/github.com/gametimesf/"
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+alias mb='make build'
+alias mt='make test'
+alias mtb='make test build'
+alias mbr='make build run'
+alias gt='go test -v'
+alias code-gen="java -jar ~/bin/dev-tools/bin/swagger-codegen-cli-2.4.5.jar generate -i ./swagger.json -l typescript-fetch   -o $HOME/dev/ts-mobileapi-client   --additional-properties modelPropertyNaming=snake_case"
+alias gcot='git checkout $CURRENT_TICKET'
+alias compass="mongodb-compass-community"
+alias mq="mongo localhost/gametime_development --username='admin' --password='gametime' --authenticationDatabase='admin' --eval "
+alias smq="mongo "'"'"mongodb+srv://staging-803bf.mongodb.net/gametime_staging"'"'" --username atlas --password='$STAGING_MONGO_PASS' --networkMessageCompressors zlib,snappy --quiet --ssl --eval "
+alias filter_mq="egrep -v \"^[0-9]{4}-[0-9]{2}-[0-9]{2}\" "
+alias ext_json_to_json="egrep -v \"^[0-9]{4}-[0-9]{2}-[0-9]{2}\" | egrep \"^[~{[\\\"]\" | sed 's/ObjectId(\(\"[0-9a-f]\{24\}\"\))/\1/g' | sed 's/ISODate(\(\"[-0-9T:Z.]*\"\))/\1/g' | sed 's/NumberLong(\([0-9]*\))/\1/g' "
 
 export TMPDIR=$HOME/tmp
 
-source $HOME/.bash/include/*
+source $HOME/.bash/include/github
 
 export GOPATH=$HOME/dev/go/
 
+export HOME_DBIN=$HOME/bin/dev-tools/
 export PATH=/opt/couchbase/bin:$PATH
-export PATH=$HOME/bin/dev-tools/:$PATH
-export PATH=$HOME/bin/dev-tools/analyzer/:$PATH
-export PATH=$HOME/bin/dev-tools/clion/bin/:$PATH
-export PATH=$HOME/bin/dev-tools/EAPidea/bin:$PATH
-export PATH=$HOME/bin/dev-tools/idea/bin:$PATH
-export PATH=$HOME/bin/dev-tools/intelliJ/bin/:$PATH
-export PATH=$HOME/bin/dev-tools/pycharm/bin:$PATH
-export PATH=$HOME/bin/dev-tools/pycharm/bin/:$PATH
-export PATH=$HOME/bin/dev-tools/scala_sloc:$PATH
-export PATH=$HOME/bin/dev-tools/robo3t-1.2.1/bin:$PATH
-export PATH=$HOME/bin/dev-tools/bin:$PATH
+export PATH=${HOME_DBIN}:$PATH
+export PATH=${HOME_DBIN}bin:$PATH
+export PATH=${HOME_DBIN}analyzer/:$PATH
+export PATH=${HOME_DBIN}clion/bin/:$PATH
+export PATH=${HOME_DBIN}EAPidea/bin:$PATH
+export PATH=${HOME_DBIN}idea/bin:$PATH
+export PATH=${HOME_DBIN}intelliJ/bin/:$PATH
+export PATH=${HOME_DBIN}pycharm/bin:$PATH
+export PATH=${HOME_DBIN}pycharm/bin/:$PATH
+export PATH=${HOME_DBIN}scala_sloc:$PATH
+export PATH=${HOME_DBIN}robo3t-1.2.1/bin:$PATH
+export PATH=${HOME_DBIN}GoLand-2019.1/bin:$PATH
+export PATH=${HOME_DBIN}WebStorm-191.6183.63/bin:$PATH
+export PATH=${HOME_DBIN}RubyMine-2019.2.3/bin:$PATH
+
 export PATH=$HOME/.vimpkg/bin:$PATH
 export PATH=$HOME/dev/go/bin:$PATH
 
@@ -52,11 +72,13 @@ export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 source /usr/local/bin/virtualenvwrapper.sh
-#source $HOME/bin/dev-tools/nvm/nvm.sh
 
 alias pdipip='/home/beachc/Envs/pdi/bin/pip'
 alias notpdipip='/home/beachc/Envs/notpdi/bin/pip'
 
+function local_mquery() {
+  mongo localhost/gametime_development --username="admin" --password="gametime" --authenticationDatabase='admin' --eval 
+}
 # TODO: Patch fonts and get powerline-bash/vim working properly
 # Powerline bash plugin -------------------------------------------------------
 #export $TERM=xterm-256color
@@ -64,6 +86,10 @@ alias notpdipip='/home/beachc/Envs/notpdi/bin/pip'
 #{
 #   export PS1="$(~/.bash/PowerLineShell/powerline-shell.py $?)"
 #}
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 #export PROMPT_COMMAND="_update_ps1"
 
 # This was all here when I made this ------------------------------------------ 
@@ -73,12 +99,10 @@ alias notpdipip='/home/beachc/Envs/notpdi/bin/pip'
 
 HISTCONTROL=ignoredups:ignorespace
 
-# append to the history file, don't overwrite it
-shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=1000
+HISTSIZE=10000000
+HISTFILESIZE=10000000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -163,10 +187,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/mcsmash/bin/dev-tools/google-cloud-sdk/path.bash.inc' ]; then source '/home/mcsmash/bin/dev-tools/google-cloud-sdk/path.bash.inc'; fi
 
@@ -185,3 +205,47 @@ PS1='$(show_virtual_env)'$PS1
 
 # direnv
 eval "$(direnv hook bash)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+function _update_ps1() {
+    PS1=$(powerline-shell $?)
+}
+
+if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+# Jeff's tunnle function
+function tunnel {
+  usage='tunnel <host> <localport> <remoteport> (targethost)'
+  if [[ -z $1 ]]; then
+    echo $usage && return
+  fi
+
+  if [[ -z $2 ]]; then
+    echo $usage && return
+  fi
+
+  if [[ -z $3 ]]; then
+    echo $usage && return
+  fi
+
+  if [[ -z $4 ]]; then
+    TARGET_HOST=$1
+  else
+    TARGET_HOST=$4
+  fi
+
+  HOST=$1
+  LOCALPORT=$2
+  REMOTEPORT=$3
+
+  ssh -l root -L ${LOCALPORT}:${TARGET_HOST}:${REMOTEPORT} ${HOST}
+}
+export PATH="/home/casey/.ebcli-virtual-env/executables:$PATH"
+
+# added by travis gem
+[ -f /home/casey/.travis/travis.sh ] && source /home/casey/.travis/travis.sh
