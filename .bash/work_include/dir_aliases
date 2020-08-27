@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+alias alarms="pushd $HOME/dev/Routing/src/EdgeAlarmManager && workon EdgeAlarmManager && clear && git status"
+alias erinf="pushd $HOME/dev/Routing/src/EdgeRECONInfrastructure && workon EdgeRECONInfrastructure && clear && ls && git status"
+alias erwc="pushd $HOME/dev/Recon/EdgeRECONWebsiteContent/src/EdgeRECONWebsiteContent && clear && ls && git status"
+alias ervinf="pushd $HOME/dev/Routing/src/EdgeRECONVpcInfrastructure && workon EdgeRECONVpcInfrastructure && clear && ls && git status"
+alias puller="pushd $HOME/dev/PMetPuller/src/PMetPuller && workon PMetPuller && clear && ls && git status"
+alias dev="pushd $HOME/dev && clear && ls"
+

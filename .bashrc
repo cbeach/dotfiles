@@ -5,11 +5,23 @@
 
 #alias mc='java -Xmx1024M -Xms512M -cp $HOME/bin/minecraft.jar net.minecraft.LauncherFrame'
 alias nautilus='nautilus --no-desktop'
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
 
-source $HOME/.bash/include/*
+for i in `ls $HOME/.bash/include/`
+do
+  source $HOME/.bash/include/$i
+done
 
+for i in `ls $HOME/.bash/work_include/`
+do
+  source $HOME/.bash/work_include/$i
+done
+
+export EDITOR=vim
 export PATH=$HOME/bin/:$PATH
 export PATH=$HOME/bin/dev-tools/:$PATH
+export PATH=$HOME/bin/dev-tools/bin/:$PATH
 export PATH=$HOME/bin/dev-tools/analyzer/:$PATH
 export PATH=$HOME/bin/dev-tools/clion/bin/:$PATH
 export PATH=$HOME/bin/dev-tools/EAPidea/bin:$PATH
@@ -19,6 +31,12 @@ export PATH=$HOME/bin/dev-tools/pycharm/bin:$PATH
 export PATH=$HOME/bin/dev-tools/pycharm/bin/:$PATH
 export PATH=$HOME/bin/dev-tools/scala_sloc:$PATH
 export PATH=$HOME/bin/dev-tools/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/clion/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/DataGrip/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/intelliJ/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/pycharm/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/GoLand/bin:$PATH
+
 export PATH=$HOME/.vimpkg/bin:$PATH
 export PATH=/usr/local/cuda-9.2/bin:$PATH
 export PATH=/opt/couchbase/bin:$PATH
@@ -27,7 +45,6 @@ export PATH=$HOME/bin/games/MultiMC:$PATH
 export PATH=$HOME/bin/games/FTL:$PATH
 
 export PATH=$HOME/.cabal:$PATH
-
 
 export JAVA_HOME=$(readlink -f $(which java))
 export JETTY_HOME="$HOME/bin/dev-tools/jetty/"
@@ -49,28 +66,22 @@ source /usr/local/bin/virtualenvwrapper.sh
 alias pdipip='/home/beachc/Envs/pdi/bin/pip'
 alias notpdipip='/home/beachc/Envs/notpdi/bin/pip'
 
-# TODO: Patch fonts and get powerline-bash/vim working properly
-# Powerline bash plugin -------------------------------------------------------
-#export $TERM=xterm-256color
-#function _update_ps1()
-#{
-#   export PS1="$(~/.bash/PowerLineShell/powerline-shell.py $?)"
-#}
-#export PROMPT_COMMAND="_update_ps1"
-
 # This was all here when I made this ------------------------------------------ 
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
 
 HISTCONTROL=ignoredups:ignorespace
+HISTIGNORE="ls:ps:history"
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+shopt -s cmdhist
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=1000
+HISTSIZE=1000000000
+HISTFILESIZE=1000000000
+HISTTIMEFORMAT="%h %d %H:%M:%S "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -83,7 +94,6 @@ shopt -s checkwinsize
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color) color_prompt=yes;;
@@ -164,3 +174,27 @@ if [ -f '/home/mcsmash/bin/dev-tools/google-cloud-sdk/path.bash.inc' ]; then sou
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/mcsmash/bin/dev-tools/google-cloud-sdk/completion.bash.inc' ]; then source '/home/mcsmash/bin/dev-tools/google-cloud-sdk/completion.bash.inc'; fi
+
+export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ANT.AMAZON.COM/casebeac/.vimpkg/bin
+
+export PATH=$HOME/.toolbox/bin:$PATH
+eval "$(direnv hook bash)"
+
+#show_virtual_env() {
+#  if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
+#    echo "($(basename $VIRTUAL_ENV))"
+#  fi
+#}
+#export -f show_virtual_env
+#PS1='$(show_virtual_env)'$PS1
+
+
+function _update_ps1() {
+    PS1=$(powerline-shell $?)
+}
+
+if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
