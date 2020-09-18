@@ -72,7 +72,6 @@ alias notpdipip='/home/beachc/Envs/notpdi/bin/pip'
 # ... or force ignoredups and ignorespace
 
 HISTCONTROL=ignoredups:ignorespace
-HISTIGNORE="ls:ps:history"
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -81,7 +80,7 @@ shopt -s cmdhist
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000000000
 HISTFILESIZE=1000000000
-HISTTIMEFORMAT="%h %d %H:%M:%S "
+HISTTIMEFORMAT="%Y-%m-%dT%H:%M:%S    "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
