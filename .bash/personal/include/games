@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+export PATH=$HOME/bin/games/MultiMC:$PATH
+export PATH=$HOME/bin/games/FTL:$PATH
+alias mc='java -Xmx1024M -Xms512M -cp $HOME/bin/minecraft.jar net.minecraft.LauncherFrame'

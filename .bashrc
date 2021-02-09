@@ -1,53 +1,18 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-#set guifont=Ubuntu\ Mono\ for\ Powerline\ 12
 
-#alias mc='java -Xmx1024M -Xms512M -cp $HOME/bin/minecraft.jar net.minecraft.LauncherFrame'
 alias nautilus='nautilus --no-desktop'
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
 
-for i in `ls $HOME/.bash/include/`
-do
-  source $HOME/.bash/include/$i
-done
-
-for i in `ls $HOME/.bash/work_include/`
-do
-  source $HOME/.bash/work_include/$i
-done
+source ~/.bash/lib.sh
+source <(include)
 
 export EDITOR=vim
-export PATH=$HOME/bin/:$PATH
-export PATH=$HOME/bin/dev-tools/:$PATH
-export PATH=$HOME/bin/dev-tools/bin/:$PATH
-export PATH=$HOME/bin/dev-tools/analyzer/:$PATH
-export PATH=$HOME/bin/dev-tools/clion/bin/:$PATH
-export PATH=$HOME/bin/dev-tools/EAPidea/bin:$PATH
-export PATH=$HOME/bin/dev-tools/idea/bin:$PATH
-export PATH=$HOME/bin/dev-tools/intelliJ/bin/:$PATH
-export PATH=$HOME/bin/dev-tools/pycharm/bin:$PATH
-export PATH=$HOME/bin/dev-tools/pycharm/bin/:$PATH
-export PATH=$HOME/bin/dev-tools/scala_sloc:$PATH
-export PATH=$HOME/bin/dev-tools/bin:$PATH
-export PATH=$HOME/bin/dev-tools/JetBrains/clion/bin:$PATH
-export PATH=$HOME/bin/dev-tools/JetBrains/DataGrip/bin:$PATH
-export PATH=$HOME/bin/dev-tools/JetBrains/intelliJ/bin:$PATH
-export PATH=$HOME/bin/dev-tools/JetBrains/pycharm/bin:$PATH
-export PATH=$HOME/bin/dev-tools/JetBrains/GoLand/bin:$PATH
 
-export PATH=$HOME/.vimpkg/bin:$PATH
-export PATH=/usr/local/cuda-9.2/bin:$PATH
-export PATH=/opt/couchbase/bin:$PATH
-
-export PATH=$HOME/bin/games/MultiMC:$PATH
-export PATH=$HOME/bin/games/FTL:$PATH
-
-export PATH=$HOME/.cabal:$PATH
+pbcopy_file="$HOME/bin/pbcopy"
+pbpaste_file="$HOME/bin/pbpaste"
+[[ -f $pbcopy_file ]] || (echo 'xclip -selection clipboard' > $pbcopy_file; chmod 755 $pbcopy_file)
+[[ -f $pbpaste_file ]] || (echo 'xclip -selection clipboard -o' > $pbpaste_file; chmod 755 $pbpaste_file)
 
 export JAVA_HOME=$(readlink -f $(which java))
-export JETTY_HOME="$HOME/bin/dev-tools/jetty/"
 export IDEA_JDK='/usr/lib/jvm/java-8-oracle/jre/bin/java'
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/dev/java_libraries/static_libraries/
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.2/lib64
@@ -61,16 +26,9 @@ export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export DATA_DIR=$HOME/dev/data/
 
 source /usr/local/bin/virtualenvwrapper.sh
-#source $HOME/bin/dev-tools/nvm/nvm.sh
-
-alias pdipip='/home/beachc/Envs/pdi/bin/pip'
-alias notpdipip='/home/beachc/Envs/notpdi/bin/pip'
-
-# This was all here when I made this ------------------------------------------ 
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
-
 HISTCONTROL=ignoredups:ignorespace
 
 # append to the history file, don't overwrite it
@@ -93,6 +51,7 @@ shopt -s checkwinsize
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
+
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color) color_prompt=yes;;
@@ -164,36 +123,4 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/mcsmash/bin/dev-tools/google-cloud-sdk/path.bash.inc' ]; then source '/home/mcsmash/bin/dev-tools/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/mcsmash/bin/dev-tools/google-cloud-sdk/completion.bash.inc' ]; then source '/home/mcsmash/bin/dev-tools/google-cloud-sdk/completion.bash.inc'; fi
-
-export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ANT.AMAZON.COM/casebeac/.vimpkg/bin
-
-export PATH=$HOME/.toolbox/bin:$PATH
 eval "$(direnv hook bash)"
-
-#show_virtual_env() {
-#  if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
-#    echo "($(basename $VIRTUAL_ENV))"
-#  fi
-#}
-#export -f show_virtual_env
-#PS1='$(show_virtual_env)'$PS1
-
-
-function _update_ps1() {
-    PS1=$(powerline-shell $?)
-}
-
-if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
-
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"

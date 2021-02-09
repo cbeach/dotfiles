@@ -1,0 +1,64 @@
+"
+"   Global text layout settings
+let mapleader = ","
+set runtimepath+=$HOME/.vim/plugin
+set nu                              "line numbers
+set vb t_vb=                        "Visual bell can die in a fire
+
+"Text format
+set nowrap
+set autoindent                      
+set tabstop=2
+set shiftwidth=2
+set smarttab
+set expandtab
+set softtabstop=2
+
+set history=1000
+set nocompatible                   " Fully Improved
+
+"Crosshairs
+set cursorline                     " Hl curr cursor line
+set cursorcolumn                   " Hl curr cursor col
+
+set enc=utf-8                      " Unicode
+set termencoding=utf-8             " Unicode
+
+set fillchars=""                   " No chars between splits
+
+set ls=2
+set statusline=[%{&ff}/%Y]         " Super fancy statusline
+set statusline+=\ %<%t
+set statusline+=%w%h%m%r
+set ruler
+set rulerformat=%15(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
+
+
+"Color settings and hacks
+set t_Co=256                       " 256 colors
+color molokai
+autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
+autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
+
+
+"Work on highlighting code fold tags to make them easier to read
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
+
+
+"Text search settings
+set ignorecase 
+set smartcase
+set incsearch
+set hlsearch
+nmap \q :nohlsearch<CR>
+
+set title
+set scrolloff=3
+
+set listchars=tab:>-,trail:·,eol:$
+nmap <silent> <leader>s :set nolist!<CR>
+
+"Keymappings
+imap jk <ESC>
+map ' `
