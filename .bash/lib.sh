@@ -56,6 +56,7 @@ color_echo() {
             ;;
     esac
 }
+export -f color_echo
 
 function include() {
   for i in `ls $HOME/.bash/include/`
@@ -78,6 +79,6 @@ function include() {
     cat $HOME/.bash/personal/path/$i
   done
 }
-
-export -f color_echo
 export -f include
+
+
