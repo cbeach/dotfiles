@@ -64,10 +64,12 @@ function include() {
     cat $HOME/.bash/include/$i
   done
 
-  for i in `ls $HOME/.bash/work_include/`
-  do
-    cat $HOME/.bash/work_include/$i
-  done
+  if [ -d "$HOME/.bash/work_include/" ]; then
+    for i in `ls $HOME/.bash/work_include/`
+    do
+      cat $HOME/.bash/work_include/$i
+    done
+  fi
 
   for i in `ls $HOME/.bash/path/`
   do
