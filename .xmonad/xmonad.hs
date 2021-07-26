@@ -1,53 +1,30 @@
 import XMonad
- 
-import System.Exit
-import System.IO
-import System.IO
 
-import XMonad.Actions.CycleWS
-
-import XMonad.Hooks.DynamicLog
+import XMonad.Layout.Magnifier
+import XMonad.Layout.ThreeColumns
+import XMonad.Util.EZConfig
+import XMonad.Util.Ungrab
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.FadeInactive
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.SetWMName
-import XMonad.Hooks.UrgencyHook
 
-import XMonad.Layout.Grid
-import XMonad.Layout.GridVariants
-import XMonad.Layout.IM
-import XMonad.Layout.LayoutHints
-import XMonad.Layout.LayoutModifier
-import XMonad.Layout.NoBorders (smartBorders, noBorders)
-import XMonad.Layout.PerWorkspace (onWorkspace, onWorkspaces)
-import XMonad.Layout.Reflect (reflectHoriz)
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.SimpleFloat
-import XMonad.Layout.Spacing
 
-import XMonad.Operations
+myLayout = tiled ||| Mirror tiled ||| Full
+  where
+    tiled   = Tall nmaster delta ratio
+    nmaster = 1      -- Default number of windows in the master pane
+    ratio   = 1/2    -- Default proportion of screen occupied by master pane
+    delta   = 3/100  -- Percent of screen to increment by when resizing panes
 
-import XMonad.Prompt
-import XMonad.Prompt.AppendFile (appendFilePrompt)
-import XMonad.Prompt.RunOrRaise (runOrRaisePrompt)
+main :: IO ()
+-- main = xmonad $ ewmhFullscreen $ ewmh $ def
+main = xmonad $ ewmh $ myConfig
 
-import XMonad.Util.EZConfig(additionalKeys)
-import XMonad.Util.Run
- 
-import Data.Ratio ((%))
- 
-import qualified XMonad.StackSet as W
-import qualified Data.Map as M
+myConfig = def
+      { modMask = mod4Mask  -- Rebind Mod to the Super key
+      , layoutHook=myLayout -- Use custom layouts
+      }
+      `additionalKeysP`
+      [ ("M-S-z", spawn "xscreensaver-command -lock")
+      , ("M-S-=", unGrab *> spawn "scrot -s"        )
+      , ("M-]"  , spawn "firefox"                   )
+      ]
 
-import XMonad.Config.Gnome
-
-main = do
-    xmonad $ gnomeConfig { 
-        focusedBorderColor  = colorFocusedBorder,
-        borderWidth         = 2,
-       --- manageHook          = manageDocks <+> manageHook defaultConfig, 
-        layoutHook          = avoidStruts (layoutHook defaultConfig ||| SplitGrid XMonad.Layout.GridVariants.L 1 1 (1/4) (16/10) (5/100))
-    } 
-colorFocusedBorder  = "#0000FF"
-startupHook = setWMName "LG3D"
