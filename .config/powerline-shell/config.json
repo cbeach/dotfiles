@@ -1,6 +1,7 @@
 {
   "segments": [
     "virtual_env",
+    "hostname",
     "aws_profile",
     "ssh",
     "cwd",
@@ -8,12 +9,16 @@
     "git_stash",
     "jobs",
     "set_term_title",
-    "svn",
     "newline",
-    "root"
+    "~/.bash/powerline-shell-custom-nonsense/custom_root.py"
   ],
   "cwd": {
     "mode": "plain",
     "max_depth": 6
-  }
+  },
+  "hostname": {
+    "colorize": true
+  },
+  "theme": "~/.bash/powerline-shell-custom-nonsense/custom_theme.py"
+
 }

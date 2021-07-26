@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-export PATH=$HOME/bin/dev-tools/bin/:$PATH
-export PATH=$HOME/bin/dev-tools/analyzer/:$PATH
+export PATH=$HOME/bin/dev-tools/bin:$PATH
+export PATH=$HOME/bin/dev-tools/analyzer:$PATH
 
 # Haskell
 export PATH=$HOME/.cabal:$PATH

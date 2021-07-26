@@ -5,5 +5,5 @@ function _update_ps1() {
 }
 
 if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-    PROMPT_COMMAND="$PROMPT_COMMAND _update_ps1; history -a"
+    PROMPT_COMMAND="$PROMPT_COMMAND _update_ps1; history -a; history -c; history -r"
 fi
