@@ -1,7 +1,7 @@
 {
   "segments": [
+    "~/.bash/powerline-shell-custom-nonsense/hostname.py",
     "virtual_env",
-    "hostname",
     "aws_profile",
     "ssh",
     "cwd",
@@ -10,15 +10,18 @@
     "jobs",
     "set_term_title",
     "newline",
+    "time",
     "~/.bash/powerline-shell-custom-nonsense/custom_root.py"
   ],
+  "hostname": {
+    "colorize": true
+  },
   "cwd": {
     "mode": "plain",
     "max_depth": 6
   },
-  "hostname": {
-    "colorize": true
+  "time": {
+    "format": "%H:%M"
   },
   "theme": "~/.bash/powerline-shell-custom-nonsense/custom_theme.py"
-
 }
