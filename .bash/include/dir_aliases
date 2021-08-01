@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
 #alias template="pushd $HOME/dev/ProjectRoot && workon ProjectVirtualEnv && clear && ls && git status"
+alias dev="pushd $HOME/dev && clear && ls"
 alias dotfiles="pushd $HOME/dev/dotfiles && clear && ls && git status"
+alias find_sprites="pushd $HOME/dev/deep_thought/data_tools/preprocessing/detect-sprites && clear && ls && git status"
