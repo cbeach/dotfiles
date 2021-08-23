@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+case "$1" in
+    --nse) # --no-set-e i.e. Don't run 'set -e'
+        echo "--no-e"
+        shift
+        COMMAND="$@"
+        ;;
+    *)
+        set -e
+        COMMAND="$@"
+esac
+
+. $HOME/.bash/lib.sh
+
+for i in $(ls ./)
+do
+
+  pushd $i/ 
+  color_echo 'yellow' "\n\n[$i]$>" "$COMMAND"
+  bash -c  "$COMMAND"
+  popd
+
+done
