@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+function get_password() {
+  if [[ -z "${1+set}" ]]; then
+    read -p'Password>' -s PASSWORD 
+  fi
+}
