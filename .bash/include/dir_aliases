@@ -4,3 +4,6 @@
 alias dev="pushd $HOME/dev && clear && ls"
 alias dotfiles="pushd $HOME/dev/dotfiles && clear && ls && git status"
 alias find_sprites="pushd $HOME/dev/deep_thought/data_tools/preprocessing/detect-sprites && clear && ls && git status"
+alias dotfiles="pushd $HOME/dev/dotfiles && clear && ls && git status"
+alias provisioning="pushd $HOME/dev/provisioning && clear && ls && git status"
+alias sdata="pushd $HOME/dev/data/game_playing/ && clear && ls"
