@@ -1,8 +1,12 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
+# dotfiles
+export BACKUP_DIR="$HOME/backups"
+[[ ! -d $BACKUP_DIR ]] && mkdir $HOME/backups
+cp $HOME/.bash_history $HOME/backups/
 alias nautilus='nautilus --no-desktop'
 
-source ~/.bash/lib.sh
+source $HOME/.bash/lib.sh
 source <(include)
 
 export EDITOR=vim
@@ -11,6 +15,8 @@ pbcopy_file="$HOME/bin/pbcopy"
 pbpaste_file="$HOME/bin/pbpaste"
 [[ -f $pbcopy_file ]] || (echo 'xclip -selection clipboard' > $pbcopy_file; chmod 755 $pbcopy_file)
 [[ -f $pbpaste_file ]] || (echo 'xclip -selection clipboard -o' > $pbpaste_file; chmod 755 $pbpaste_file)
+
+export DATA_DIR=$HOME/dev/data/
 
 export JAVA_HOME=$(readlink -f $(which java))
 export IDEA_JDK='/usr/lib/jvm/java-8-oracle/jre/bin/java'
@@ -22,8 +28,7 @@ export WORKON_HOME=$HOME/Envs
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
-
-export DATA_DIR=$HOME/dev/data/
+export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3.8'
 
 source /usr/local/bin/virtualenvwrapper.sh
 
@@ -124,3 +129,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 eval "$(direnv hook bash)"
+source ~/.bash/secrets
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
