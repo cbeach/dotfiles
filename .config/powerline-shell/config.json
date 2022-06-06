@@ -10,7 +10,7 @@
     "jobs",
     "set_term_title",
     "newline",
-    "time",
+    "~/.bash/powerline-shell-custom-nonsense/time.py",
     "~/.bash/powerline-shell-custom-nonsense/custom_root.py"
   ],
   "hostname": {
@@ -21,7 +21,8 @@
     "max_depth": 6
   },
   "time": {
-    "format": "%H:%M"
+    "format": "%H:%M",
+    "time_zones": ["US/Pacific", "UTC"]
   },
   "theme": "~/.bash/powerline-shell-custom-nonsense/custom_theme.py"
 }
