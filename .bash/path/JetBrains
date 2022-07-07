@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+export PATH=$HOME/bin/dev-tools/JetBrains/clion/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/DataGrip/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/GoLand/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/intelliJ/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/pycharm/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/RubyMine/bin:$PATH
+export PATH=$HOME/bin/dev-tools/JetBrains/WebStorm/bin:$PATH

@@ -1,13 +1,13 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
-# dotfiles
-export BACKUP_DIR="$HOME/backups"
-[[ ! -d $BACKUP_DIR ]] && mkdir $HOME/backups
-cp $HOME/.bash_history $HOME/backups/
-alias nautilus='nautilus --no-desktop'
-
 source $HOME/.bash/lib.sh
 source <(include)
+
+# dotfiles
+export BACKUP_DIR="$HOME/backups"
+[[ ! -d $BACKUP_DIR ]] && mkdir -p $HOME/backups/history
+cp $HOME/.bash_history $HOME/backups/history/$(date +%s).bash_history
+alias nautilus='nautilus --no-desktop'
 
 export EDITOR=vim
 
@@ -18,7 +18,7 @@ pbpaste_file="$HOME/bin/pbpaste"
 
 export DATA_DIR=$HOME/dev/data/
 
-export JAVA_HOME=$(readlink -f $(which java))
+export JAVA_HOME=$(readlink -f $(which java) | sed 's/bin\/java//')
 export IDEA_JDK='/usr/lib/jvm/java-8-oracle/jre/bin/java'
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/dev/java_libraries/static_libraries/
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.2/lib64
@@ -130,5 +130,11 @@ fi
 
 eval "$(direnv hook bash)"
 source ~/.bash/secrets
-export PATH="$HOME/.rbenv/bin:$PATH"
+
+export PATH=$PATH:$HOME/.toolbox/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 eval "$(rbenv init -)"
