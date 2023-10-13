@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+alias nautilus='nautilus --no-desktop'
+alias butane='docker run -it --rm --security-opt label=disable        \
+              --volume ${PWD}:/pwd --workdir /pwd \
+              quay.io/coreos/butane:release'
+
+##### kubernetes #####
+alias kc='kubectl'
+alias kcd="kubectl describe"
+alias kcg="kubectl get"
+alias kcl="kubectl logs"
+

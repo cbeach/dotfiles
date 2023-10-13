@@ -7,4 +7,8 @@ function _get_password() {
   fi
 }
 
-alias get_password='_get_password; export PASSWORD=$password; unset password'
+function rlf() {
+  readlink -f $1 | pbcopy
+}
+
+alias get_password='_get_password; export PASSWORD=$password;'
