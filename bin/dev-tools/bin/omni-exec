@@ -12,12 +12,26 @@ esac
 
 . $HOME/.bash/lib.sh
 
-for i in $(ls ./)
-do
-
-  pushd $i/ 
-  color_echo 'yellow' "\n\n[$i]$>" "$COMMAND"
-  bash -c  "$COMMAND"
-  popd
-
-done
+if [ -z "${OMNI_ORDER+x}" ]
+then
+  # OMNI_ORDER is unset
+  for i in $(ls ./)
+  do
+    pushd $i/ > /dev/null
+    OMNI_DIR=$i
+    color_echo 'yellow' "\n\n[$i]$>" "$COMMAND"
+    FORMATTED_COMMAND=$(echo "$COMMAND" | sed "s/{OMNI_DIR}/$OMNI_DIR/")
+    bash -c  "$FORMATTED_COMMAND"
+    popd > /dev/null
+  done
+else
+  for i in ${OMNI_ORDER} # OMNI_ORDER is the ordered list of directories that omni-exec should process. It is a space dilimited string.
+  do
+    pushd $i/ > /dev/null
+    OMNI_DIR=$i
+    color_echo 'yellow' "\n\n[$i]$>" "$COMMAND"
+    FORMATTED_COMMAND=$(echo "$COMMAND" | sed "s/{OMNI_DIR}/$OMNI_DIR/")
+    bash -c  "$FORMATTED_COMMAND"
+    popd > /dev/null
+  done
+fi

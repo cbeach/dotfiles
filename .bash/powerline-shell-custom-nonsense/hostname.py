@@ -8,7 +8,7 @@ class Segment(BasicSegment):
     def add_to_powerline(self):
         powerline = self.powerline
         hostname = gethostname().split(".")[0]
-        if hostname == "ud3bb6c3dba1656":
+        if hostname == "u46787578a2e350":
             hostname = "wheatly"
         elif hostname == "dev-dsk-casebeac-2a-a88e73ff":
             hostname = "servitor1"
