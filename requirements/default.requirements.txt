@@ -1,7 +1,7 @@
 backcall==0.2.0
 bpytop==1.0.67
 decorator==5.0.9
-ipython==7.27.0
+ipython==7.31.1
 jedi==0.18.0
 matplotlib-inline==0.1.2
 parso==0.8.2
