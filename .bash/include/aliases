@@ -11,3 +11,5 @@ alias kcd="kubectl describe"
 alias kcg="kubectl get"
 alias kcl="kubectl logs"
 
+
+alias lshrug="echo '¯\\_(ツ)_/¯' | pbcopy"

@@ -16,3 +16,4 @@ alias notes="workon obsidian; pushd $HOME/dev/notes/slip-box/obsidian && git sta
 alias rainbow="workon rainbow_blinken_lights; pushd $HOME/dev/rainbow_blinken_lights && git status && ls"
 alias cbeach-tools="workon cbeach-tools; pushd $HOME/dev/cbeach-tools && git status && ls"
 alias build-utils="workon build-utils; pushd $HOME/dev/build-utils && git status && ls"
+alias verse="workon verst; pushd $HOME/dev/verse && git status && ls"

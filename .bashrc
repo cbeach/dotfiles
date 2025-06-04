@@ -21,14 +21,12 @@ export DATA_DIR=$HOME/dev/data/
 export JAVA_HOME=$(readlink -f $(which java) | sed 's/bin\/java//')
 export IDEA_JDK='/usr/lib/jvm/java-8-oracle/jre/bin/java'
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/dev/java_libraries/static_libraries/
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.2/lib64
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 
 export WORKON_HOME=$HOME/Envs
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
-export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3.8'
+export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
 
 source /usr/local/bin/virtualenvwrapper.sh
 
@@ -128,6 +126,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+xmodmap ~/.Xmodmap
+
 eval "$(direnv hook bash)"
 source ~/.bash/secrets
 
@@ -138,3 +138,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 eval "$(rbenv init -)"
+
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/mcsmash/.lmstudio/bin"
+# End of LM Studio CLI section
+

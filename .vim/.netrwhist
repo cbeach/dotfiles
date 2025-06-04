@@ -1,5 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
-let g:netrw_dirhist_3='/home/ANT.AMAZON.COM/casebeac/dev/TheDiagram/src/TheDiagram/notes'
-let g:netrw_dirhist_2='/home/ANT.AMAZON.COM/casebeac/dev/ATVAssetPersonalizationCradle-Pipeline/src/ATVAssetPersonalizationCradle-Pipeline/shadow-bin'
-let g:netrw_dirhist_1='/home/ANT.AMAZON.COM/casebeac/dev/provisioning/dotfiles/.bash/include'
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy/perception'
+let g:netrw_dirhist_8='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy'
+let g:netrw_dirhist_7='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy/simulation'
+let g:netrw_dirhist_6='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy'
+let g:netrw_dirhist_5='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy/ros-core'
+let g:netrw_dirhist_4='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy'
+let g:netrw_dirhist_3='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy/ros-core'
+let g:netrw_dirhist_2='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy'
+let g:netrw_dirhist_1='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy/ros-base'
+let g:netrw_dirhist_0='/home/mcsmash/dev/third-party/open-robotics/docker_images/ros/humble/ubuntu/jammy'

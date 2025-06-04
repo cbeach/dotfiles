@@ -106,10 +106,7 @@ let g:NERDTreeMapPreview="<F4>"
 set wildignore+=*/target/*
 
 "RainbowParens
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+let g:rainbow_active = 1
 
 "Functions for making unicode character combinations.
 command! -range -nargs=0 Overline        call s:CombineSelection(<line1>, <line2>, '0305')

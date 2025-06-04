@@ -22,7 +22,7 @@ class Segment(BasicSegment):
         if tz is None:
             dt = datetime.now() 
         else:
-            dt = datetime.now(timezone(tz))
+            dt = datetime.now(timezone('America/Los_Angeles'))
 
         if fmt:
             time_ = '%s' % dt.strftime(fmt)
